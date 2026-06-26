@@ -108,14 +108,14 @@ console.log(
 );
 
 // Test 2: Find Existing Paitent
-const found = findPatientByPhone("9876543210");
+const found = findPatientByPhone("9876543211");
 console.log("\n Test 2 - find Existing Patient:");
 console.log(
-    found.name === "Rahul" ? "PASS" : "FAIL",
+    found.name === "Rahul Sharma" ? "PASS" : "FAIL",
     found
-); 
+);
 
-// Test 3: Find Existing Paitent
+// Test 3: Find Non-Existing Paitent
 const notFound = findPatientByPhone("0000000000");
 
 console.log("\nTest 3 - Find Non-Existing Patient:");
@@ -138,3 +138,117 @@ console.log("\nTest 5 - Deactivate Patient:");
 console.log(
     patients.find((p) => p.id==2).isActive ===false ? "PASS" : "FAIL"
 );
+
+// Patient Search Engine
+
+// 1. Search Patients
+function searchPatients(query) {
+  return patients.filter(patient =>
+    patient.name.toLowerCase().includes(query.toLowerCase())
+  );
+}
+
+// 2. Filter by Blood Group
+function filterByBloodGroup(group) {
+  return patients.filter(patient => patient.bloodGroup === group);
+}
+
+// 3. Patient Statistics
+function getPatientStats() {
+  const total = patients.length;
+
+  const active = patients.filter(patient => patient.isActive).length;
+
+  const avgAge =
+    patients.reduce((sum, patient) => sum + patient.age, 0) / total;
+
+  const bloodGroups = patients.reduce((count, patient) => {
+    count[patient.bloodGroup] = (count[patient.bloodGroup] || 0) + 1;
+    return count;
+  }, {});
+
+  return {
+    total,
+    active,
+    avgAge,
+    bloodGroups
+  };
+}
+
+// 4. Sort Patients
+function sortPatients(field, order) {
+  const sortedPatients = [...patients];
+
+  sortedPatients.sort((a, b) => {
+    let valueA = a[field];
+    let valueB = b[field];
+
+    if (typeof valueA === "string") {
+      valueA = valueA.toLowerCase();
+      valueB = valueB.toLowerCase();
+    }
+
+    if (order === "asc") {
+      return valueA > valueB ? 1 : -1;
+    } else {
+      return valueA < valueB ? 1 : -1;
+    }
+  });
+
+  return sortedPatients;
+}
+
+// 5. Patient Summary
+function getPatientSummary(id) {
+  const patient = patients.find(patient => patient.id === id);
+
+  if (!patient) {
+    return "Patient not found";
+  }
+
+  const allergyList =
+    patient.allergies.length > 0
+      ? patient.allergies.join(", ")
+      : "None";
+
+  return `${patient.name} | Age: ${patient.age} | Blood: ${patient.bloodGroup} | Allergies: ${allergyList}`;
+}
+
+// ======================
+// TESTS
+// ======================
+
+// searchPatients
+console.log("Search Test 1");
+console.log(searchPatients("rah"));
+
+console.log("Search Test 2");
+console.log(searchPatients("RAH"));
+
+// filterByBloodGroup
+console.log("Blood Group Test 1");
+console.log(filterByBloodGroup("O+"));
+
+console.log("Blood Group Test 2");
+console.log(filterByBloodGroup("B+"));
+
+// getPatientStats
+console.log("Stats Test 1");
+console.log(getPatientStats());
+
+console.log("Stats Test 2");
+console.log(getPatientStats().bloodGroups);
+
+// sortPatients
+console.log("Sort Test 1");
+console.log(sortPatients("age", "desc"));
+
+console.log("Sort Test 2");
+console.log(sortPatients("name", "asc"));
+
+// getPatientSummary
+console.log("Summary Test 1");
+console.log(getPatientSummary(1));
+
+console.log("Summary Test 2");
+console.log(getPatientSummary(2));
