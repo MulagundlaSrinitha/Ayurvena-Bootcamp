@@ -79,7 +79,7 @@ class Doctor {
   }
 }
 
-//module.exports = Doctor;
+module.exports = Doctor;
 
 //const Doctor = require("./Doctor");
 
