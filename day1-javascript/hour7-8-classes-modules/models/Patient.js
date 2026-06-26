@@ -34,4 +34,30 @@ class Patient {
   }
 }
 
-module.exports = Patient;
+//module.exports = Patient;
+
+// TESTS
+
+const patient1 = new Patient(
+  6,
+  "Abhay",
+  32,
+  "9876543244",
+  "O-"
+);
+
+console.log("Patient Profile:");
+console.log(patient1.getProfile());
+
+console.log("\nAdd Allergies");
+patient1.addAllergy("Penicillin");
+patient1.addAllergy("Dust");
+console.log(patient1.getProfile());
+
+console.log("\nRemove Allergy");
+patient1.removeAllergy("Dust");
+console.log(patient1.getProfile());
+
+console.log("\nDeactivate Patient");
+patient1.deactivate();
+console.log(patient1.getProfile());
