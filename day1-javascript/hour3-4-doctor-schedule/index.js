@@ -2,7 +2,7 @@
 // Doctors Array
 const doctors = [
   {
-    Doctorid: 1,
+    id: 1,
     name: "Dr. Kumar",
     specialization: "Cardiology",
     hospital: "Medicare Hospital",
@@ -17,7 +17,7 @@ const doctors = [
     ]
   },
   {
-    Doctorid: 2,
+    id: 2,
     name: "Dr. Sharma",
     specialization: "Dermatology",
     hospital: "Apollo Hospital",
@@ -32,7 +32,7 @@ const doctors = [
     ]
   },
   {
-    Doctorid: 3,
+    id: 3,
     name: "Dr. Reddy",
     specialization: "Neurology",
     hospital: "Care Hospital",
